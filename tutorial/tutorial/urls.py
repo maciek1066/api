@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from rest_framework import routers
 
+from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
+
+from companies.views import StockView
 from quickstart import views
 
 router = routers.DefaultRouter()
@@ -29,4 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^api-auth', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^stocks', StockView.as_view()),
 ]
+
+# urlpatterns = format_suffix_patterns(urlpatterns)
