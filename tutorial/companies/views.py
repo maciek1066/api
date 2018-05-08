@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Stock
 from .serializers import StockSerializer
+from forms import StockAddForm
 
 
 # Lists all stocks or create a new one at stocks/
@@ -14,5 +15,10 @@ class StockView(APIView):
         serializer = StockSerializer(stocks, many=True)
         return Response(serializer.data)
 
-    def post(self):
-        pass
+    def post(self, request):
+        form = StockAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return Response(serializer.data)
+
+
