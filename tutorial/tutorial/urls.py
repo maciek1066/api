@@ -19,6 +19,7 @@ from django.conf.urls import url, include
 
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from companies.views import StockView
 from quickstart import views
@@ -33,6 +34,8 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^stocks', StockView.as_view()),
+    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/refresh/', TokenRefreshView.as_view()),
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
